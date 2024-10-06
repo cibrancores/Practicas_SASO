@@ -1,17 +1,7 @@
-mysql-apt-config        mysql-apt-config/preview-component      string  mysql-tools-preview
-mysql-apt-config        mysql-apt-config/repo-codename  select  bookworm
-mysql-apt-config        mysql-apt-config/repo-distro    select  debian
-mysql-apt-config        mysql-apt-config/repo-url       string  http://repo.mysql.com/apt
-mysql-apt-config        mysql-apt-config/select-preview select  Enabled
-mysql-apt-config        mysql-apt-config/select-product select  Ok
-mysql-apt-config        mysql-apt-config/select-server  select  mysql-8.0
-mysql-apt-config        mysql-apt-config/select-tools   select  Enabled
-mysql-apt-config        mysql-apt-config/tools-component        string  mysql-tools
-mysql-apt-config        mysql-apt-config/unsupported-platform   select  abort
 mysql-community-server  mysql-community-server/data-dir note
-mysql-community-server  mysql-community-server/re-root-pass     password
+mysql-community-server  mysql-community-server/re-root-pass     password toor
 mysql-community-server  mysql-community-server/remove-data-dir  boolean false
-mysql-community-server  mysql-community-server/root-pass        password
+mysql-community-server  mysql-community-server/root-pass        password toor
 mysql-community-server  mysql-community-server/root-pass-mismatch       error
 mysql-community-server  mysql-server/default-auth-override      select  Use Strong Password Encryption (RECOMMENDED)
 mysql-community-server  mysql-server/lowercase-table-names      select

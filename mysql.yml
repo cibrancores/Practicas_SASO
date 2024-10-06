@@ -1,0 +1,57 @@
+---
+- name: Instalacion MySQL en Debian 12
+  hosts: server1, server_prueba
+  become: yes
+  tasks:
+    - name: Actualizar el índice de paquetes de apt
+      ansible.builtin.apt:
+        update_cache: yes
+    
+    - name: Instalar debconf-utils
+      ansible.builtin.apt:
+        name: debconf-utils
+        state: present
+
+    - name: Copiar archivos mysql.txt y mysql2.txt al sistema remoto
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      with_items:
+        - { src: "tmp/mysql.txt", dest: "/tmp/mysql.txt" }
+        - { src: "tmp/mysql2.txt", dest: "/tmp/mysql2.txt" }
+
+    - name: Descargar paquete de MySQL
+      ansible.builtin.shell:
+        cmd: wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb
+        chdir: /tmp
+      args:
+        creates: /tmp/mysql-apt-config_0.8.29-1_all.deb
+    
+    - name: Cargar elecciones para la primera parte mysql.txt
+      ansible.builtin.shell: |
+        debconf-set-selections < /tmp/mysql.txt
+
+    - name: Instalar paquete de MySQL
+      ansible.builtin.apt:
+        deb: /tmp/mysql-apt-config_0.8.29-1_all.deb
+
+    - name: Actualizar de nuevo el índice de paquetes APT después de añadir el repositorio MySQL
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Cargar elecciones para la segunda parte mysql2.txt
+      ansible.builtin.shell: |
+        debconf-set-selections < /tmp/mysql2.txt
+
+    - name: Instalar MySQL Server
+      ansible.builtin.apt:
+        name: mysql-server
+        state: present
+    
+    - name: Comprobar que MySQL está activo y corriendo
+      ansible.builtin.shell: systemctl status mysql
+      register: mysql_status
+
+    - name: Mostrar el estado de MySQL
+      ansible.builtin.debug:
+        msg: "{{ mysql_status.stdout }}"
