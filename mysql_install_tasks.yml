@@ -1,3 +1,14 @@
+- name: Cargar configuracion mysql
+  ansible.builtin.debconf:
+    name: "{{ selection.name }}"
+    question: "{{ selection.question }}"
+    value: "{{ selection.value }}"
+    vtype: "{{ selection.vtype }}"
+  loop: "{{ mysql_conf_selections }}"
+  loop_control:
+    loop_var: selection
+  ignore_errors: true
+
 - name: Descargar paquete de MySQL
   ansible.builtin.shell:
     cmd: wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb

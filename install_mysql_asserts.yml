@@ -1,0 +1,7 @@
+# Comprobar que el equipo sea un Debian 12
+- name: Assert if distribution is Debian 12
+  ansible.builtin.assert:
+    that:
+      - ansible_distribution == "Debian"
+      - ansible_distribution_major_version == "12"
+    fail_msg: "Distribution not supported"

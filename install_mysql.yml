@@ -2,14 +2,9 @@
 - name: Instalacion MySQL en Debian 12
   hosts: server2
   tasks:
-
-    # Comprobar que el equipo sea un Debian 12
-    - name: Assert if distribution is Debian 12
-      ansible.builtin.assert:
-        that:
-          - ansible_distribution == "Debian"
-          - ansible_distribution_major_version == "12"
-        fail_msg: "Distribution not supported"
+    # Se ejecutan los asserts necesarios para la ejecución del playbook
+    - name: Load variables to configure mysql (debconf)
+      ansible.builtin.include_tasks: install_mysql_asserts.yml
 
     # Se hace un apt update
     - name: Update apt
@@ -19,10 +14,6 @@
     # Se cargan las variables
     - name: Load variables to configure mysql (debconf)
       ansible.builtin.include_vars: mysql_conf_vars.yml
-
-    # Se añaden las variables para la configuración en el debconf
-    - name: Load tasks to configure mysql (debconf)
-      ansible.builtin.include_tasks: mysql_conf_tasks.yml
 
     # Se ejecutan las tareas encargadas de instalar el mysql
     - name: Load tasks to install mysql
