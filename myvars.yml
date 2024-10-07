@@ -1,0 +1,16 @@
+lista_paquetes:
+  - vim
+  - zip
+  - unzip
+  - curl
+
+users_perms:
+  manolo:
+    perm: "755"
+    home: "/home/manolo"
+  pepito:
+    perm: "644"
+    home: "/home/pepito"
+  juan:
+    perm: "755"
+    home: "/home/juan"

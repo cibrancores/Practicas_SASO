@@ -1,0 +1,19 @@
+- name: Descargar paquete de MySQL
+  ansible.builtin.shell:
+    cmd: wget https://dev.mysql.com/get/mysql-apt-config_0.8.29-1_all.deb
+    chdir: /tmp
+  args:
+    creates: /tmp/mysql-apt-config_0.8.29-1_all.deb
+
+- name: Instalar paquete de MySQL
+  ansible.builtin.apt:
+    deb: /tmp/mysql-apt-config_0.8.29-1_all.deb
+
+- name: Actualizar de nuevo el índice de paquetes APT después de añadir el repositorio MySQL
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Instalar MySQL Server
+  ansible.builtin.apt:
+    name: mysql-server
+    state: present

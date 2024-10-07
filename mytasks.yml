@@ -1,0 +1,32 @@
+- name: Iterate over a variable
+  ansible.builtin.debug:
+    msg: "vamos por el usuario: {{ user.key }} con permiso: {{ user.value.perm }} y home: {{ user.value.home }} y numero de paquete: {{ idx_user }}"
+  loop: "{{ users_perms | dict2items }}"
+  loop_control:
+    loop_var: user
+    index_var: idx_user
+
+#- name: fail
+#  ansible.builtin.fail:
+- name: Assert if distribution is Debian 12
+  ansible.builtin.assert:
+    that:
+      - ansible_distribution == "Debian"
+      - ansible_distribution_major_version == "12"
+    fail_msg: "Distribution not supported"
+
+- name: Install packages via apt
+  ansible.builtin.apt:
+    name:
+      - zip
+  when: ansible_distribution == "Debian"
+
+- name: Install packages via yum
+  ansible.builtin.yum:
+    name:
+      - zip
+  when: ansible_distribution == "Red Hat"
+
+- name: Iterate over a variable 2
+  ansible.builtin.debug:
+    var: users_perms

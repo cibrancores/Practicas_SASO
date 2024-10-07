@@ -1,0 +1,30 @@
+mysql_conf_selections:
+  - name: mysql-apt-config
+    question: mysql-apt-config/select-server
+    value: mysql-8.0
+    vtype: select
+
+  - name: mysql-apt-config
+    question: mysql-apt-config/select-preview
+    value: Disabled
+    vtype: select
+
+  - name: mysql-apt-config
+    question: mysql-apt-config/select-tools
+    value: Disabled
+    vtype: select
+
+  - name: mysql-community-server
+    question: mysql-community-server/re-root-pass
+    value: toor
+    vtype: password
+
+  - name: mysql-community-server
+    question: mysql-community-server/root-pass
+    value: toor
+    vtype: password
+
+  - name: mysql-community-server
+    question: mysql-server/default-auth-override
+    value: Use Strong Password Encryption (RECOMMENDED)
+    vtype: select

@@ -1,0 +1,11 @@
+---
+- hosts: server1
+  tasks:
+    - name: Load variables
+      ansible.builtin.include_vars:
+        file: myvars.yml
+
+    - name: Load task
+      ansible.builtin.include_tasks: mytasks.yml
+
+    

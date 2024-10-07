@@ -1,0 +1,21 @@
+---
+- hosts: server1
+  vars:
+    lista_paquetes:
+      - vim
+      - zip
+      - unzip
+      - curl
+  tasks:
+    - name: Iterate over a variable
+      ansible.builtin.debug:
+        msg: "vamos por el item: {{ paquete }} y numero de paquete: {{ idx_paquete }}"
+      loop: "{{ lista_paquetes }}"
+      vars:
+        lista_paquetes:
+          - vim
+          - zip
+          - unzip
+      loop_control:
+        loop_var: paquete
+        index_var: idx_paquete
