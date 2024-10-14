@@ -1,0 +1,52 @@
+---
+# tasks file for apache2
+- name: Install base software
+  ansible.builtin.apt:
+    name: "{{ required_packages }}"
+    state: present
+  tags:
+    - apache
+    - apache.install
+
+- name: Compute packages for install modules
+  ansible.builtin.set_fact:
+    install_modules_pkgs: |
+      {{ install_modules_pkgs + [ mod2pkg[current_pkg] ] }}
+  loop: "{{ install_modules }}"
+  loop_control:
+    loop_var: current_pkg
+  tags:
+    - apache
+    - apache.install
+
+- name: Install modules
+  ansible.builtin.apt:
+    name: "{{ install_modules_pkgs }}"
+    state: present
+  tags:
+    - apache
+    - apache.install
+
+- name: Compute apache packages for install modules
+  ansible.builtin.set_fact:
+    install_modules_apache: |
+      {{ install_modules_apache + [ mod2apachemodule[current_pkg] ] }}
+  loop: "{{ install_modules }}"
+  loop_control:
+    loop_var: current_pkg
+  tags:
+    - apache
+    - apache.config
+
+- name: Enable required modules
+  #community.general.apache2_module:
+  #  state: present
+  #  name: "{{ current_module }}"
+  ansible.builtin.shell: |
+    a2enmod {{ current_module }}
+  loop: "{{ install_modules_apache }}"
+  loop_control:
+    loop_var: current_module
+  tags:
+    - apache
+    - apache.config

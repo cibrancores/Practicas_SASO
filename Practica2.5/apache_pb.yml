@@ -1,0 +1,19 @@
+---
+
+- hosts: server1
+  tasks:
+    - name: Load vault (claves_vault.yml)
+      ansible.builtin.include_vars: claves_vault.yml
+      tags:
+        - always
+
+    - name: Invoke apache2 module
+      ansible.builtin.include_role:
+        name: apache2
+      vars:
+        install_modules:
+          - php
+      tags:
+        - apache
+        - apache.install
+        - apache.config
