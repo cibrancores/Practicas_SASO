@@ -1,0 +1,16 @@
+---
+# vars file for apache2
+required_packages:
+  - apache2
+
+install_modules_pkgs: []
+
+install_modules_apache: []
+
+mod2pkg:
+  php: libapache2-mod-php8.2
+  php8.2: libapache2-mod-php8.2
+
+mod2apachemodule:
+  php: php8.2
+  php8.2: php8.2

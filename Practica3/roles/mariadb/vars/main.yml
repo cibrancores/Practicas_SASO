@@ -1,0 +1,7 @@
+---
+# vars file for mariadb
+required_packages:
+  - mariadb-server
+  - php-mysql
+  - python3-pymysql
+  #- python3-mysqldb

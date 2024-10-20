@@ -1,0 +1,2 @@
+server1 ansible_host=192.168.1.12 ansible_user=user ansible_become=yes
+lamp ansible_host=192.168.1.13 ansible_user=user ansible_become=yes

@@ -1,0 +1,53 @@
+---
+# tasks file for mariadb
+- name: Install mariadb server and php-mysql pkg
+  ansible.builtin.apt:
+    name: "{{ required_packages }}"
+    state: present
+    update_cache: yes
+  tags:
+    - mariadb
+    - mariadb.install
+
+- name: Start and enable MariaDB service
+  ansible.builtin.systemd:
+    name: mariadb
+    state: started
+    enabled: yes
+  tags:
+    - mariadb
+    - mariadb.install
+
+- name: Create user with permissions
+  community.mysql.mysql_user:
+    name: "{{ vault_mariadb_user }}"
+    password: "{{ vault_mariadb_password }}"
+    priv: '*.*:ALL,GRANT'
+    state: present
+    column_case_sensitive: false  # Para evitar un warning
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  tags:
+    - mariadb
+    - mariadb.config
+
+- name: Restart MariaDB
+  ansible.builtin.systemd:
+    name: mariadb
+    state: restarted
+  tags:
+    - mariadb
+    - mariadb.config
+
+- name: Check the status of MariaDB
+  ansible.builtin.shell: "systemctl status mariadb | grep 'Active:' | awk -F'Active: ' '{print $2}'"
+  register: mariadb_status
+  tags:
+    - mariadb
+    - mariadb.status
+
+- name: Show MariaDB active status
+  ansible.builtin.debug:
+    msg: "MariaDB is currently: {{ mariadb_status.stdout }}"
+  tags:
+    - mariadb
+    - mariadb.status

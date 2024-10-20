@@ -1,0 +1,134 @@
+---
+# tasks file for apache2
+- name: Install base software
+  ansible.builtin.apt:
+    name: "{{ required_packages }}"
+    state: present
+    update_cache: yes
+  tags:
+    - apache
+    - apache.install
+
+- name: Compute packages for install modules
+  ansible.builtin.set_fact:
+    install_modules_pkgs: |
+      {{ install_modules_pkgs + [ mod2pkg[current_pkg] ] }}
+  loop: "{{ install_modules }}"
+  loop_control:
+    loop_var: current_pkg
+  tags:
+    - apache
+    - apache.install
+
+- name: Install modules
+  ansible.builtin.apt:
+    name: "{{ install_modules_pkgs }}"
+    state: present
+  tags:
+    - apache
+    - apache.install
+
+- name: Compute apache packages for install modules
+  ansible.builtin.set_fact:
+    install_modules_apache: |
+      {{ install_modules_apache + [ mod2apachemodule[current_pkg] ] }}
+  loop: "{{ install_modules }}"
+  loop_control:
+    loop_var: current_pkg
+  tags:
+    - apache
+    - apache.config
+
+- name: Enable required modules
+  ansible.builtin.shell: |
+    a2enmod {{ current_module }}
+  loop: "{{ install_modules_apache }}"
+  loop_control:
+    loop_var: current_module
+  tags:
+    - apache
+    - apache.config
+
+- name: Create the web root directory
+  ansible.builtin.file:
+    path: /var/www/myapp
+    state: directory
+  tags:
+    - apache
+    - apache.config
+
+- name: Copy index.php to web root
+  ansible.builtin.template:
+    src: templates/var/www/myapp/index.php.j2
+    dest: /var/www/myapp/index.php
+    mode: '0644'
+  tags:
+    - apache
+    - apache.config
+
+- name: Ejecutar plantilla
+  ansible.builtin.template:
+    src: templates/etc/apache2/sites_available/sites.conf.j2
+    dest: /etc/apache2/sites-available/sites.conf
+    mode: '0644'
+  vars:
+    ports: '80'
+    apache_vhosts:
+      - servername: debian
+        documentroot: /var/www/myapp
+  tags:
+    - apache
+    - apache.config
+
+- name: Enable the site
+  #ansible.builtin.command:
+  #  cmd: a2ensite sites.conf
+  ansible.builtin.file:
+    src: /etc/apache2/sites-available/sites.conf
+    dest: /etc/apache2/sites-enabled/sites.conf
+    state: link
+  tags:
+    - apache
+    - apache.config
+
+- name: Disable the default site
+  #ansible.builtin.command:
+  #  cmd: a2dissite 000-default.conf
+  ansible.builtin.file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+  tags:
+    - apache
+    - apache.config
+
+#- name: Set DocumentRoot to prefer myapp
+#  ansible.builtin.lineinfile:
+#    path: /etc/apache2/apache2.conf
+#    regexp: '^DocumentRoot'
+#    line: 'DocumentRoot /var/www/myapp'
+#    state: present
+#  tags:
+#    - apache
+#    - apache.config
+
+- name: Restart Apache
+  ansible.builtin.systemd:
+    name: apache2
+    state: restarted
+  tags:
+    - apache
+    - apache.config
+
+- name: Check the status of Apache
+  ansible.builtin.shell: "systemctl status apache2 | grep 'Active:' | awk -F'Active: ' '{print $2}'"
+  register: apache_status
+  tags:
+    - apache
+    - apache.status
+
+- name: Show Apache status
+  ansible.builtin.debug:
+    msg: "Apache is currently: {{ apache_status.stdout }}"
+  tags:
+    - apache
+    - apache.status

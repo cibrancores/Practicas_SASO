@@ -1,0 +1,40 @@
+---
+
+- hosts: lamp
+  tasks:
+    - name: Load vault (claves_vault.yml)
+      ansible.builtin.include_vars: claves_vault.yml
+      tags:
+        - always
+      # Contraseña: claves
+
+    - name: Check if the host meets the requirements
+      ansible.builtin.include_tasks: lamp_asserts.yml
+      tags:
+        - always
+
+    - name: Invoke apache2 module
+      ansible.builtin.include_role:
+        name: apache2
+      vars:
+        install_modules:
+          - php
+      tags:
+        - apache
+        - apache.install
+        - apache.config
+        - apache.status
+
+    - name: Invoke mariadb module
+      ansible.builtin.include_role:
+        name: mariadb
+      tags:
+        - mariadb
+        - mariadb.install
+        - mariadb.config
+        - mariadb.status
+
+    # Para probar que funcionase he añadido un reenvío
+    # de puertos del 8080 al 80 para en el buscador del
+    # ordenador acceder a localhost:8080 y ver el contenido
+    # de index.php
