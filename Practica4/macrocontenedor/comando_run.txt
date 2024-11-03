@@ -1,0 +1,30 @@
+docker build                \
+    --build-arg DB_NAME=mydatabase \
+    --build-arg DB_USER=myuser     \
+    --build-arg DB_PASS=mypassword \
+    -t macrocontenedor:latest .
+
+
+docker run -it   \
+    -p 80:80     \
+    -p 3306:3306 \
+    --name macrocontenedor \
+    -v $(pwd)/web:/var/www/html \
+    macrocontenedor:latest
+
+# CTRL + PQ
+
+docker exec -it macrocontenedor /bin/bash
+
+# Para comprobar que se inicializó la base de datos podemos hacer lo siguiente
+# mysql -u myuser -p
+# SHOW DATABASES;
+
+# Consideraciones:
+# Si quisiesemos añadir una configuración del sitio podríamos añadir lo siguiente
+# al Dockerfile:
+# - cat /root/files/sites.conf > /etc/apache2/sites-available/sites.conf
+# - a2ensite sites.conf && a2dissite 000-default.conf
+# En este caso como es una imagen para desarrollo no necesitamos tener una
+# configuración específica y podemos configurarla en otra imagen si
+# necesitasemos algo concreto para un proyecto.
