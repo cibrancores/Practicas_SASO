@@ -1,0 +1,37 @@
+version: "2"
+
+services:
+  nginx:
+    image: bitnami/nginx
+    networks:
+      - nginx-php-fpm
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./my_server_block.conf:/opt/bitnami/nginx/conf/server_blocks/my_server_block.conf:ro
+      - ./web:/app:ro
+  php-fpm:
+    image: bitnami/php-fpm
+    networks:
+      - nginx-php-fpm
+      - php-fpm-mariadb
+    volumes:
+      -  ./web:/app:ro
+  mariadb:
+    build:
+      context: .
+      dockerfile: mariadb.Dockerfile
+      args:
+        DBUSER: user
+        DBPASS: userpass
+        DBADMINUSER: root
+        DBADMINPASS: toor
+        DBNAME: mydb
+    networks:
+      - php-fpm-mariadb
+
+networks:
+  php-fpm-mariadb:
+
+  nginx-php-fpm:
