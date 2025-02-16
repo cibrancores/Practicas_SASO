@@ -1,0 +1,39 @@
+---
+# tasks file for webserver
+- name: Copiar archivos del compose en el servidor remoto
+  ansible.builtin.copy:
+    src: files/webserver/
+    dest: /home/user/webserver
+  tags:
+    - webserver
+    - webserver.start
+
+# community.docker.docker_compose Se eliminó en Julio de 2022
+# hay que utilizar la versión actualizada con _v2.
+- name: Run `docker compose up`
+  community.docker.docker_compose_v2:
+    project_src: /home/user/webserver
+    state: present
+  register: output
+  tags:
+    - webserver
+    - webserver.start
+
+#- name: Show results
+#  ansible.builtin.debug:
+#    var: output
+
+- name: Verify that apache and mariadb services are running
+  ansible.builtin.assert:
+    that:
+      - web_container.State == 'running'
+      - db_container.State == 'running'
+    success_msg: "Apache and MariaDB are active and running!"
+  vars:
+    web_container: >-
+      {{ output.containers | selectattr("Service", "equalto", "apache") | first }}
+    db_container: >-
+      {{ output.containers | selectattr("Service", "equalto", "mariadb") | first }}
+  tags:
+    - webserver
+    - webserver.status

@@ -1,0 +1,366 @@
+version: 1
+dn: dc=esei,dc=uvigo,dc=es
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: esei
+o: ESEI
+
+dn: ou=grupos,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: grupos
+
+dn: cn=pas,ou=grupos,dc=esei,dc=uvigo,dc=es
+objectClass: posixGroup
+objectClass: top
+cn: pas
+gidNumber: 2002
+
+dn: cn=alumnos,ou=grupos,dc=esei,dc=uvigo,dc=es
+objectClass: posixGroup
+objectClass: top
+cn: alumnos
+gidNumber: 2003
+
+dn: cn=profesores,ou=grupos,dc=esei,dc=uvigo,dc=es
+objectClass: posixGroup
+objectClass: top
+cn: profesores
+gidNumber: 2001
+
+dn: ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: usuarios
+
+dn: ou=pas,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: pas
+
+dn: uid=fmgarrido,ou=pas,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn: Francisca Merino Garrido
+gidNumber: 2002
+homeDirectory: /home/fmgarrido
+sn: Merino Garrido
+uid: fmgarrido
+uidNumber: 1003
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: alumnos
+
+dn: ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: GradoIA
+
+dn: ou=2021,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2021
+
+dn: uid=aglopez21,ou=2021,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: QW5hIEdhcmPDrWEgTMOzcGV6
+gidNumber: 2003
+homeDirectory: /home/aglopez21
+sn:: R2FyY8OtYSBMw7NwZXo=
+uid: aglopez21
+uidNumber: 1010
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2022,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2022
+
+dn: uid=pmsanchez22,ou=2022,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: UGVkcm8gTWFydMOtbmV6IFPDoW5jaGV6
+gidNumber: 2003
+homeDirectory: /home/pmsanchez22
+sn:: TWFydMOtbmV6IFPDoW5jaGV6
+uid: pmsanchez22
+uidNumber: 1011
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2023,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2023
+
+dn: uid=lfruiz23,ou=2023,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: TGF1cmEgRmVybsOhbmRleiBSdWl6
+gidNumber: 2003
+homeDirectory: /home/lfruiz23
+sn: Fernandez Ruiz
+uid: lfruiz23
+uidNumber: 1012
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2024,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2024
+
+dn: uid=cgtorres24,ou=2024,ou=GradoIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: Q2FybG9zIEfDs21leiBUb3JyZXM=
+gidNumber: 2003
+homeDirectory: /home/cgtorres24
+sn:: R8OzbWV6IFRvcnJlcw==
+uid: cgtorres24
+uidNumber: 1013
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=MasterIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: MasterIA
+
+dn: ou=2023,ou=MasterIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2023
+
+dn: uid=ipmartin19,ou=2023,ou=MasterIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: SXNhYmVsIFDDqXJleiBNYXJ0w61u
+gidNumber: 2003
+homeDirectory: /home/ipmartin19
+sn:: UMOpcmV6IE1hcnTDrW4=
+uid: ipmartin19
+uidNumber: 1018
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2024,ou=MasterIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2024
+
+dn: uid=jtromero20,ou=2024,ou=MasterIA,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn: Javier Torres Romero
+gidNumber: 2003
+homeDirectory: /home/jtromero20
+sn: Torres Romero
+uid: jtromero20
+uidNumber: 1019
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: GradoInformatica
+
+dn: ou=2021,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2021
+
+dn: uid=mlvargas21,ou=2021,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: TWFyw61hIEzDs3BleiBWYXJnYXM=
+gidNumber: 2003
+homeDirectory: /home/mlvargas21
+sn:: TMOzcGV6IFZhcmdhcw==
+uid: mlvargas21
+uidNumber: 1014
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2022,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2022
+
+dn: uid=jhperez22,ou=2022,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: Sm9zw6kgSGVybsOhbmRleiBQw6lyZXo=
+gidNumber: 2003
+homeDirectory: /home/jhperez22
+sn:: SGVybsOhbmRleiBQw6lyZXo=
+uid: jhperez22
+uidNumber: 1015
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2023,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2023
+
+dn: uid=ermorales23,ou=2023,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: RWxlbmEgUm9kcsOtZ3VleiBNb3JhbGVz
+gidNumber: 2003
+homeDirectory: /home/ermorales23
+sn:: Um9kcsOtZ3VleiBNb3JhbGVz
+uid: ermorales23
+uidNumber: 1016
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2024,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2024
+
+dn: uid=rsgomez24,ou=2024,ou=GradoInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: UmHDumwgU8OhbmNoZXogR8OzbWV6
+gidNumber: 2003
+homeDirectory: /home/rsgomez24
+sn:: U8OhbmNoZXogR8OzbWV6
+uid: rsgomez24
+uidNumber: 1017
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=MasterInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: MasterInformatica
+
+dn: ou=2023,ou=MasterInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2023
+
+dn: uid=cccabaleiro19,ou=2023,ou=MasterInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn: Cibran Cores Cabaleiro
+gidNumber: 2003
+homeDirectory: /home/cccabaleiro19
+sn: Cores Cabaleiro
+uid: cccabaleiro19
+uidNumber: 1020
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=2024,ou=MasterInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: 2024
+
+dn: uid=svdiaz20,ou=2024,ou=MasterInformatica,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: U29mw61hIFZhcmdhcyBEw61heg==
+gidNumber: 2003
+homeDirectory: /home/svdiaz20
+sn:: VmFyZ2FzIETDrWF6
+uid: svdiaz20
+uidNumber: 1021
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: profesores
+
+dn: ou=Informatica,ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: Informatica
+
+dn: uid=moncho,ou=Informatica,ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn:: Sm9zw6kgUmFtw7NuIE3DqW5kZXogUmVib3JlZG8=
+gidNumber: 2001
+homeDirectory: /home/moncho
+sn:: TcOpbmRleiBSZWJvcmVkbw==
+uid: moncho
+uidNumber: 1002
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+
+dn: ou=IngenieriadeSistemaseAutomatica,ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: organizationalUnit
+objectClass: top
+ou: IngenieriadeSistemaseAutomatica
+
+dn: uid=mcacho,ou=IngenieriadeSistemaseAutomatica,ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: person
+objectClass: top
+cn: Miguel Ramon Diaz-Cacho Medina
+gidNumber: 2001
+homeDirectory: /home/mcacho
+sn: Diaz-Cacho Medina
+uid: mcacho
+uidNumber: 1001
+userPassword:: e1NIQX0vRGE3RzlyaFZDVUtiNWgzWmVwb295d3BpOEk9
+

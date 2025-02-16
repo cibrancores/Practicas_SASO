@@ -1,0 +1,47 @@
+---
+# tasks file for docker
+
+- name: Remove previous docker installation
+  ansible.builtin.apt:
+    name: ['docker', 'docker-engine', 'docker.io']
+    state: absent
+    update_cache: yes
+  tags:
+    - docker
+    - docker.clean
+
+- name: Install prerequisite packages
+  ansible.builtin.apt:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
+    state: present
+    update_cache: yes
+  tags:
+    - docker
+    - docker.install
+
+- name: Import Docker CE repository gpg key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+  tags:
+    - docker
+    - docker.install
+
+- name: Add Docker CE repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+  tags:
+    - docker
+    - docker.install
+
+- name: Install Docker CE
+  ansible.builtin.apt:
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io', 'docker-compose']
+    state: present
+    update_cache: yes
+  notify: Start Docker CE service
+  tags:
+    - docker
+    - docker.start

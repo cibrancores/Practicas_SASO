@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+  tasks:
+    - name: Check if the host meets the requirements
+      ansible.builtin.include_tasks: install_asserts.yml
+      tags:
+        - always
+
+    - name: Install docker on all servers
+      ansible.builtin.include_role:
+        name: docker
+      tags:
+        - docker
+        - docker.clean
+        - docker.install
+        - docker.start
+
+    - name: Invoke webserver module
+      ansible.builtin.include_role:
+        name: webserver
+      tags:
+        - webserver
+        - webserver.start
+        - webserver.status
+
+    # Para probar que funcionase he añadido un reenvío
+    # de puertos del 8080 al 80 para en el buscador del
+    # ordenador acceder a localhost:8080 y ver el contenido
+    # de index.php

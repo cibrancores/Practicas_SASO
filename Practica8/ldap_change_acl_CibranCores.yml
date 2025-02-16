@@ -1,0 +1,74 @@
+---
+    # MIT License
+    
+    # Copyright (c) 2018 
+    
+    # Permission is hereby granted, free of charge, to any person obtaining a copy
+    # of this software and associated documentation files (the "Software"), to deal
+    # in the Software without restriction, including without limitation the rights
+    # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    # copies of the Software, and to permit persons to whom the Software is
+    # furnished to do so, subject to the following conditions:
+    
+    # The above copyright notice and this permission notice shall be included in all
+    # copies or substantial portions of the Software.
+    
+    # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    # SOFTWARE.
+
+- hosts: ldap_server
+  tasks:
+    - name: Set up the ACL
+      community.general.ldap_attrs:
+        dn: olcDatabase={1}mdb,cn=config
+        attributes:
+            olcAccess:
+                - >- # This is the default {0} ACL
+                    {0}to attrs=userPassword
+                    by self write
+                    by anonymous auth
+                    by * none
+                - >- # This is the default {1} ACL
+                    {1}to attrs=shadowLastChange
+                    by self write
+                    by * read
+                - >- # Professors: personal data accessible only by the owner
+                    {2}to dn.regex="^uid=.*,((ou=.*),?)*,ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es$"
+                    attrs=homePhone,mobile,mail,postalAddress,postalCode,st,street,telephoneNumber
+                    by self write
+                    by * none
+                - >- # Students: personal data accessible by professors and owner but not by other students
+                    {3}to dn.regex="^uid=.*,((ou=.*),?)*,ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es$"
+                    attrs=homePhone,mobile,mail,postalAddress,postalCode,st,street,telephoneNumber
+                    by self write
+                    by dn.subtree="ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es" read
+                    by dn.subtree="ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es" none
+                    by * none
+                # Se han añadido las reglas 4 y 5 para que los alumnos no puedan acceder al arbol de profesores
+                # ni al de pas para aumentar seguridad pero sin estas 2 se estarían cumpliendo
+                # las reglas del enunciado.
+                - >- # Deny access to professors subtree, for students
+                    {4}to dn.subtree="ou=profesores,ou=usuarios,dc=esei,dc=uvigo,dc=es"
+                    by dn.subtree="ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es" none
+                    by * read
+                - >- # Deny access to PAS subtree, for students
+                    {5}to dn.subtree="ou=pas,ou=usuarios,dc=esei,dc=uvigo,dc=es"
+                    by dn.subtree="ou=alumnos,ou=usuarios,dc=esei,dc=uvigo,dc=es" none
+                    by * read
+                - >- # PAS: personal data accessible only by the owner
+                    {6}to dn.regex="^uid=.*,ou=pas,ou=usuarios,dc=esei,dc=uvigo,dc=es$"
+                    attrs=homePhone,mobile,mail,postalAddress,postalCode,st,street,telephoneNumber
+                    by self write
+                    by * none
+                - >- # Deny access to groups subtree, for only admin
+                    {7}to dn.subtree="ou=grupos,dc=esei,dc=uvigo,dc=es"
+                    by * none
+                - >- # This is the default {2} ACL
+                    {8}to *
+                    by * read
+        state: exact
