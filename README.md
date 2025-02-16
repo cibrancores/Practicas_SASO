@@ -4,18 +4,21 @@ In this repo I uploaded all the short projects done during the course 2024-2025,
 
 The topics covered are:
 - **Automating Infrastructure with Ansible**:
-  - Practica1.5
-  - Practica1
-  - Practica2.5
-  - Practica2
-  - Practica3.5
-  - Practica3
+  - [Practica1.5](./Practica1.5/)
+  - [Practica1](./Practica1/)
+  - [Practica2.5](./Practica2.5/)
+  - [Practica2](./Practica2/)
+  - [Practica3.5](./Practica3.5/)
+  - [Practica3](./Practica3/)
+
 - **Containerized Infrastructure with Docker & Compose**:
-  - Practica4.5
-  - Practica4
-  - Practica5
+  - [Practica4.5](./Practica4.5/)
+  - [Practica4](./Practica4/)
+  - [Practica5](./Practica5/)
+
 - **Integrating Ansible & Docker**:
-  - Practica6
+  - [Practica6](./Practica6/)
+
 - **Managing Authentication and Access Control with LDAP & ACLs**:
-  - Practica7
-  - Practica8
+  - [Practica7](./Practica7/)
+  - [Practica8](./Practica8/)
